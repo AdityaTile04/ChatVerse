@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,10 +23,21 @@ const SignUpPage = () => {
 
   const { signup, isSigningUp } = userAuthStore();
 
-  const validateForm = () => {};
+  const validateForm = () => {
+    if (!formData.fullName.trim()) return toast.error("full name is required!");
+    if (!formData.email.trim()) return toast.error("email is required!");
+    if (!/\S+@\S+\.\S+/.test(formData.email))
+      return toast.error("invalid email format");
+
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const success = validateForm();
+
+    if (success === true) signup(formData);
   };
 
   return (
@@ -148,7 +160,6 @@ const SignUpPage = () => {
         </div>
       </div>
 
-  
       <AuthImagePattern
         title="Join our community"
         subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
