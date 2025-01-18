@@ -32,7 +32,9 @@ const ChatContainer = () => {
   ]);
 
   useEffect(() => {
-    messageEndRef.current.scrollIntoTopView({ behavior: "smooth" });
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
   if (isMessagesLoading) {
