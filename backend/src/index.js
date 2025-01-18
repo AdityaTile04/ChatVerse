@@ -8,7 +8,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
-const app = express();
+import { app, server } from "./lib/socket.js";
 
 app.use(express.json());
 app.use(cookieParser());
@@ -22,7 +22,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server running on port ${port}`);
   connectDB();
 });
