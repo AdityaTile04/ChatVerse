@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
@@ -6,9 +6,7 @@ import toast from "react-hot-toast";
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-
   const fileInputRef = useRef(null);
-
   const { sendMessage } = useChatStore();
 
   const handleImageChange = (e) => {
@@ -40,6 +38,7 @@ const MessageInput = () => {
         image: imagePreview,
       });
 
+      // Clear form
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -86,6 +85,7 @@ const MessageInput = () => {
             ref={fileInputRef}
             onChange={handleImageChange}
           />
+
           <button
             type="button"
             className={`hidden sm:flex btn btn-circle
@@ -106,5 +106,4 @@ const MessageInput = () => {
     </div>
   );
 };
-
 export default MessageInput;
